@@ -10,9 +10,9 @@
     <p>Ini adalah halaman dashboard khusus kasir.</p>
 
     <ul>
-        <li><a href="#">Transaksi Penjualan</a></li>
-        <li><a href="#">Data Pelanggan</a></li>
-        <li><a href="#">Riwayat Transaksi</a></li>
+        <li><a href="<?= base_url('kasir/transaksi') ?>">Transaksi Penjualan</a></li>
+        <li><a href="<?= base_url('kasir/pelanggan') ?>">Data Pelanggan</a></li>
+        <li><a href="<?= base_url('kasir/transaksi/riwayat') ?>">Riwayat Transaksi</a></li>
     </ul>
 </body>
 </html>
