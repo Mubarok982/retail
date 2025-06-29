@@ -16,4 +16,14 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/header');
         $this->load->view('admin/laporan/index', $data);
     }
+
+    public function detail($id)
+{
+    $this->load->model('M_transaksi');
+    $data['kasir'] = $this->M_transaksi->get_transaksi_by_id($id);
+    $data['detail'] = $this->M_transaksi->get_detail_by_transaksi($id);
+
+    $this->load->view('admin/laporan/detail', $data);
+}
+
 }

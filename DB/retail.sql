@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2025 at 08:52 AM
+-- Generation Time: Jun 29, 2025 at 10:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -38,11 +38,9 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `deskripsi`) VALUES
-(1, 'Minuman', 'Aneka minuman botol dan kaleng'),
-(2, 'Makanan', 'Produk makanan ringan dan berat'),
-(3, 'Peralatan Rumah', 'Barang kebutuhan rumah tangga'),
-(4, 'Elektronik', 'Gadget dan alat elektronik'),
-(5, 'ATK', 'Alat tulis kantor dan sekolah');
+(12, 'amunisi', 'ddd'),
+(13, 'amunisi mboh', 'ddd'),
+(14, 'makan', 'makan-makan');
 
 -- --------------------------------------------------------
 
@@ -57,6 +55,14 @@ CREATE TABLE `pelanggan` (
   `no_hp` varchar(15) DEFAULT NULL,
   `alamat` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `email`, `no_hp`, `alamat`) VALUES
+(16, 'mulyono', 'rizqymubarok99@gmail.com', '081391005220', 'Bandongan'),
+(17, 'Dewi Lestari e', 'dian123@gmail.com', '08139', 'Bandongan');
 
 -- --------------------------------------------------------
 
@@ -79,7 +85,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `id_kategori`, `harga`, `stok`, `deskripsi`, `gambar`) VALUES
-(1, 'baygon', 1, 100.00, 10000, 'minum ini nikmatnya samoai surga', 'Aluminum-PNG-Pic.png');
+(18, 'fff', 14, 1222.00, -9999996, 'hhhhhhhhhhhh', 'Aluminum-PNG-Pic1.png'),
+(19, 'baygon', 14, 9999999.00, -68, 'bb', 'plastik2.jpg');
 
 -- --------------------------------------------------------
 
@@ -90,9 +97,17 @@ INSERT INTO `produk` (`id_produk`, `nama_produk`, `id_kategori`, `harga`, `stok`
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
   `id_pelanggan` int(11) DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
   `tanggal` date NOT NULL,
   `total` decimal(12,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_pelanggan`, `id_user`, `tanggal`, `total`) VALUES
+(32, 16, 6, '2025-06-29', 9999999999.99);
 
 -- --------------------------------------------------------
 
@@ -107,6 +122,14 @@ CREATE TABLE `transaksi_detail` (
   `jumlah` int(11) DEFAULT NULL,
   `subtotal` decimal(12,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transaksi_detail`
+--
+
+INSERT INTO `transaksi_detail` (`id_detail`, `id_transaksi`, `id_produk`, `jumlah`, `subtotal`) VALUES
+(20, 32, 19, 77, 769999923.00),
+(21, 32, 18, 9999999, 9999999999.99);
 
 -- --------------------------------------------------------
 
@@ -159,7 +182,8 @@ ALTER TABLE `produk`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `id_pelanggan` (`id_pelanggan`);
+  ADD KEY `id_pelanggan` (`id_pelanggan`),
+  ADD KEY `transaksi_ibfk_2` (`id_user`);
 
 --
 -- Indexes for table `transaksi_detail`
@@ -184,31 +208,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -230,7 +254,8 @@ ALTER TABLE `produk`
 -- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`);
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`),
+  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
 
 --
 -- Constraints for table `transaksi_detail`

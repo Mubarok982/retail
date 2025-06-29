@@ -55,7 +55,25 @@ class M_transaksi extends CI_Model {
                         ->result();
     }
 
-    
+    public function get_transaksi_by_id($id)
+{
+    return $this->db->select('t.*, u.nama_user, p.nama_pelanggan')
+        ->from('transaksi t')
+        ->join('users u', 'u.id_user = t.id_user')
+        ->join('pelanggan p', 'p.id_pelanggan = t.id_pelanggan')
+        ->where('t.id_transaksi', $id)
+        ->get()
+        ->row();
+}
 
-    
+public function get_detail_by_transaksi($id)
+{
+    return $this->db->select('d.*, pr.nama_produk')
+        ->from('transaksi_detail d')
+        ->join('produk pr', 'pr.id_produk = d.id_produk')
+        ->where('d.id_transaksi', $id)
+        ->get()
+        ->result();
+}
+
 }
