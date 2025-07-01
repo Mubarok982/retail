@@ -1,3 +1,4 @@
+<?php $this->load->view('templates/sidebar_admin'); ?>
 <h3>Data Kategori</h3>
 <a href="<?= base_url('admin/kategori/tambah') ?>">+ Tambah Kategori</a><br><br>
 

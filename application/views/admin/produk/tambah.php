@@ -1,27 +1,61 @@
-<h3>Tambah Produk</h3>
+<?php $this->load->view('templates/sidebar_admin'); ?>
 
-<form action="<?= base_url('admin/produk/simpan') ?>" method="post" enctype="multipart/form-data">
-    <label>Nama Produk:</label><br>
-    <input type="text" name="nama_produk" required><br><br>
+<!-- Content Wrapper -->
+<div class="content-wrapper">
+    <section class="content pt-3">
+        <div class="container-fluid">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Tambah Produk</h3>
+                </div>
+                
+                <!-- form start -->
+                <form action="<?= base_url('admin/produk/simpan') ?>" method="post" enctype="multipart/form-data">
+                    <div class="card-body">
 
-    <label>Kategori:</label><br>
-    <select name="id_kategori" required>
-        <?php foreach($kategori as $k): ?>
-            <option value="<?= $k->id_kategori ?>"><?= $k->nama_kategori ?></option>
-        <?php endforeach; ?>
-    </select><br><br>
+                        <div class="form-group">
+                            <label for="nama_produk">Nama Produk</label>
+                            <input type="text" name="nama_produk" class="form-control" id="nama_produk" required>
+                        </div>
 
-    <label>Harga:</label><br>
-    <input type="number" name="harga" required><br><br>
+                        <div class="form-group">
+                            <label for="id_kategori">Kategori</label>
+                            <select name="id_kategori" class="form-control" id="id_kategori" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                <?php foreach($kategori as $k): ?>
+                                    <option value="<?= $k->id_kategori ?>"><?= $k->nama_kategori ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-    <label>Stok:</label><br>
-    <input type="number" name="stok" required><br><br>
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <input type="number" name="harga" class="form-control" id="harga" required>
+                        </div>
 
-    <label>Deskripsi:</label><br>
-    <textarea name="deskripsi"></textarea><br><br>
+                        <div class="form-group">
+                            <label for="stok">Stok</label>
+                            <input type="number" name="stok" class="form-control" id="stok" required>
+                        </div>
 
-    <label>Gambar:</label><br>
-    <input type="file" name="gambar"><br><br>
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea name="deskripsi" class="form-control" rows="3"></textarea>
+                        </div>
 
-    <button type="submit">Simpan</button>
-</form>
+                        <div class="form-group">
+                            <label for="gambar">Gambar Produk</label>
+                            <input type="file" name="gambar" class="form-control-file" id="gambar">
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                        <a href="<?= base_url('admin/produk') ?>" class="btn btn-secondary">Kembali</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

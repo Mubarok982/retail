@@ -1,3 +1,4 @@
+<?php $this->load->view('templates/sidebar_admin'); ?>
 <h3>Laporan Penjualan</h3>
 <table border="1" cellpadding="5">
     <tr>

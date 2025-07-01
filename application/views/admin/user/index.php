@@ -1,3 +1,4 @@
+<?php $this->load->view('templates/sidebar_admin'); ?>
 <h3>Data User</h3>
 <a href="<?= base_url('admin/user/tambah') ?>">+ Tambah User</a><br><br>
 

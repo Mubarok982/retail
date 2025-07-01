@@ -45,15 +45,13 @@ class M_transaksi extends CI_Model {
                         ->result();
     }
 
-    public function get_detail($id_transaksi)
-    {
-        return $this->db->select('d.*, pr.nama_produk')
-                        ->from('transaksi_detail d')
-                        ->join('produk pr', 'pr.id_produk = d.id_produk')
-                        ->where('d.id_transaksi', $id_transaksi)
-                        ->get()
-                        ->result();
-    }
+    public function get_detail($id) {
+    $this->db->select('td.*, pr.nama_produk');
+    $this->db->from('transaksi_detail td');
+    $this->db->join('produk pr', 'pr.id_produk = td.id_produk');
+    $this->db->where('td.id_transaksi', $id);
+    return $this->db->get()->result();
+}
 
     public function get_transaksi_by_id($id)
 {
@@ -75,5 +73,26 @@ public function get_detail_by_transaksi($id)
         ->get()
         ->result();
 }
+
+public function get_all_with_detail() {
+    $this->db->select('t.id_transaksi, t.tanggal, t.total, p.nama_pelanggan, u.nama_user');
+    $this->db->from('transaksi t');
+    $this->db->join('pelanggan p', 'p.id_pelanggan = t.id_pelanggan', 'left');
+    $this->db->join('users u', 'u.id_user = t.id_user', 'left');
+    $this->db->order_by('t.tanggal', 'DESC');
+    return $this->db->get()->result();
+}
+
+
+
+public function get_by_id($id) {
+    $this->db->select('t.*, p.nama_pelanggan, u.nama_user');
+    $this->db->from('transaksi t');
+    $this->db->join('pelanggan p', 'p.id_pelanggan = t.id_pelanggan', 'left');
+    $this->db->join('users u', 'u.id_user = t.id_user', 'left');
+    $this->db->where('t.id_transaksi', $id);
+    return $this->db->get()->row();
+}
+
 
 }
