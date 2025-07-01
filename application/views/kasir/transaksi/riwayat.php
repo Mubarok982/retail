@@ -4,7 +4,7 @@
     <tr>
         <th>No</th><th>Tanggal</th><th>Pelanggan</th><th>Total</th><th>Aksi</th>
     </tr>
-    <?php $no=1; foreach ($transaksi as $t): ?>
+    <?php $no = 1; foreach ($riwayat as $t): ?>
     <tr>
         <td><?= $no++ ?></td>
         <td><?= $t->tanggal ?></td>

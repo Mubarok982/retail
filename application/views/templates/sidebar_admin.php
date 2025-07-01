@@ -80,25 +80,79 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="<?= base_url('admin/produk') ?>" class="nav-link">
+          <!-- Dropdown Kelola Produk -->
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-box-open"></i>
-              <p>Kelola Produk</p>
+              <p>
+                Kelola Produk
+                <i class="right fas fa-angle-down"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('admin/produk') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Produk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/produk/tambah') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Data Produk</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="<?= base_url('admin/kategori') ?>" class="nav-link">
+          <!-- Dropdown Kelola Kategori -->
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tags"></i>
-              <p>Kelola Kategori</p>
+              <p>
+                Kelola Kategori
+                <i class="right fas fa-angle-down"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('admin/kategori') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Kategori</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/kategori/tambah') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Kategori</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="<?= base_url('admin/user') ?>" class="nav-link">
+          <!-- Dropdown Kelola User -->
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
-              <p>Kelola User</p>
+              <p>
+                Kelola User
+                <i class="right fas fa-angle-down"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('admin/user') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/user/tambah') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah User</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">

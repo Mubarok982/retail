@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- AdminLTE -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
-
     <title>Dashboard</title>
     <style>
         body { font-family: Arial; margin: 0; }
@@ -25,10 +20,6 @@
         }
     </style>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-
 <body>
 
 <div class="navbar">

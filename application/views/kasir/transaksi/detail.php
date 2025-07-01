@@ -1,3 +1,4 @@
+<?php $this->load->view('templates/sidebar_kasir'); ?>
 <h3>Detail Transaksi</h3>
 
 <a href="<?= base_url('kasir/transaksi/riwayat') ?>">← Kembali ke Riwayat</a><br><br>

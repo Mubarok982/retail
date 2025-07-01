@@ -7,14 +7,35 @@
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h3 class="card-title">Data Produk</h3>
-                    <div class="card-tools">
-                        <a href="<?= base_url('admin/produk/tambah') ?>" class="btn btn-sm btn-light">
-                            <i class="fas fa-plus"></i> Tambah Produk
-                        </a>
-                    </div>
                 </div>
 
                 <div class="card-body">
+                    <!-- Filter Kategori -->
+                    <form method="get" class="mb-3">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <select name="kategori" class="form-control" onchange="this.form.submit()">
+                                    <option value="">-- Semua Kategori --</option>
+                                    <?php foreach($kategori_list as $kat): ?>
+                                        <option value="<?= $kat->id_kategori ?>" <?= (isset($selected_kategori) && $selected_kategori == $kat->id_kategori) ? 'selected' : '' ?>>
+                                            <?= $kat->nama_kategori ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <input type="number" name="min_harga" class="form-control" placeholder="Harga Min" value="<?= isset($min_harga) ? $min_harga : '' ?>">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <input type="number" name="max_harga" class="form-control" placeholder="Harga Max" value="<?= isset($max_harga) ? $max_harga : '' ?>">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <button type="submit" class="btn btn-primary btn-block">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End Filter Kategori -->
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="thead-dark">
@@ -47,7 +68,7 @@
                                         <a href="<?= base_url('admin/produk/edit/' . $p->id_produk) ?>" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="<?= base_url('produk/hapus/' . $p->id_produk) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus produk ini?')">
+                                        <a href="<?= base_url('admin/produk/hapus/' . $p->id_produk) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus produk ini?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>

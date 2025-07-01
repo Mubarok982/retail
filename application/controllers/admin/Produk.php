@@ -17,8 +17,17 @@ class Produk extends CI_Controller
 
     public function index()
     {
-        $data['produk'] = $this->M_produk->get_all();
-        $this->load->view('templates/header');
+        $kategori_id = $this->input->get('kategori');
+        $min_harga = $this->input->get('min_harga');
+        $max_harga = $this->input->get('max_harga');
+        $data['kategori_list'] = $this->M_kategori->get_all();
+
+        $data['selected_kategori'] = $kategori_id ? $kategori_id : '';
+        $data['min_harga'] = $min_harga;
+        $data['max_harga'] = $max_harga;
+
+        $data['produk'] = $this->M_produk->get_filtered($kategori_id, $min_harga, $max_harga);
+
         $this->load->view('admin/produk/index', $data);
     }
 

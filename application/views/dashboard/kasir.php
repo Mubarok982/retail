@@ -1,5 +1,5 @@
 <?php $this->load->view('templates/header'); ?>
-
+<?php $this->load->view('templates/sidebar_kasir'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +8,5 @@
 <body>
     <h1>Selamat Datang Kasir, <?= $this->session->userdata('nama_user'); ?>!</h1>
     <p>Ini adalah halaman dashboard khusus kasir.</p>
-
-    <ul>
-        <li><a href="<?= base_url('kasir/transaksi') ?>">Transaksi Penjualan</a></li>
-        <li><a href="<?= base_url('kasir/pelanggan') ?>">Data Pelanggan</a></li>
-        <li><a href="<?= base_url('kasir/transaksi/riwayat') ?>">Riwayat Transaksi</a></li>
-    </ul>
 </body>
 </html>
