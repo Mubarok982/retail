@@ -1,42 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <!-- AdminLTE -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    <meta charset="UTF-8">
+    <title><?= $title ?? 'Dashboard' ?> - Retail App</title>
 
-    <title>Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- AdminLTE -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+
     <style>
-        body { font-family: Arial; margin: 0; }
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-            color: #fff;
-            padding: 14px 20px;
+        body {
+            font-family: 'Inter', sans-serif;
         }
-        .navbar a {
+        .navbar-custom {
+            background-color: #343a40;
+            padding: 0.75rem 1.5rem;
+            color: #fff;
+        }
+        .navbar-custom a {
             color: #fff;
             text-decoration: none;
-            padding: 0 15px;
-        }
-        .navbar .right {
-            float: right;
+            margin-left: 1rem;
         }
     </style>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
 
-<body>
-
-<div class="navbar">
-    <span>Retail App</span>
-
-    <div class="right">
-        <span><?= $this->session->userdata('nama_user'); ?> (<?= $this->session->userdata('role'); ?>)</span>
-        |
-        <a href="<?= base_url('auth/logout') ?>">Logout</a>
-    </div>
-</div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand navbar-dark navbar-custom">
+        <span class="navbar-brand mb-0 h5">Retail App</span>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item text-white">
+                <?= $this->session->userdata('nama_user'); ?> (<?= $this->session->userdata('role'); ?>)
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </li>
+        </ul>
+    </nav>

@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Transaksi extends CI_Controller {
+class Transaksi extends CI_Controller
+{
 
     public function __construct()
     {
@@ -24,7 +25,7 @@ class Transaksi extends CI_Controller {
     public function tambah_ke_keranjang()
     {
         $id_produk = $this->input->post('id_produk');
-        $jumlah    = $this->input->post('jumlah');
+        $jumlah = $this->input->post('jumlah');
 
         $produk = $this->M_produk->get_by_id($id_produk);
 
@@ -63,20 +64,26 @@ class Transaksi extends CI_Controller {
     }
 
     public function riwayat()
-{
-    $id_user = $this->session->userdata('id_user');
-    $data['transaksi'] = $this->M_transaksi->get_riwayat_by_user($id_user);
+    {
+        $id_user = $this->session->userdata('id_user');
 
-    $this->load->view('templates/header');
-    $this->load->view('kasir/transaksi/riwayat', $data);
-}
+        // Ambil riwayat transaksi berdasarkan user
+        $data['riwayat'] = $this->M_transaksi->get_riwayat_by_user($id_user);
 
-public function detail($id)
-{
-    $data['detail'] = $this->M_transaksi->get_detail($id);
-    $this->load->view('templates/header');
-    $this->load->view('kasir/transaksi/detail', $data);
-}
+        // Tambahkan title jika perlu
+        $data['title'] = 'Riwayat Transaksi';
+
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar_kasir');
+        $this->load->view('kasir/transaksi/riwayat', $data); // <- penting
+        $this->load->view('templates/footer');
+    }
 
 
+    public function detail($id)
+    {
+        $data['detail'] = $this->M_transaksi->get_detail($id);
+        $this->load->view('templates/header');
+        $this->load->view('kasir/transaksi/detail', $data);
+    }
 }

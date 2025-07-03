@@ -9,24 +9,24 @@ class Riwayat extends CI_Controller {
         $this->load->model('M_user');
         $this->load->model('M_pelanggan');
 
-        // pastikan kasir login
-        if ($this->session->userdata('role') != 'kasir') {
+        // Pastikan hanya kasir yang bisa mengakses
+        if ($this->session->userdata('role') !== 'kasir') {
             redirect('auth');
         }
     }
 
     public function index() {
-        $data['title'] = 'Riwayat Transaksi';
         $data['riwayat'] = $this->M_transaksi->get_all_with_detail();
-        $this->load->view('templates/header', $data); 
-        $this->load->view('kasir/transaksi/riwayat', $data); 
-        $this->load->view('templates/sidebar_kasir', $data); 
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar_kasir');
+        $this->load->view('kasir/riwayat/index', $data);
     }
 
     public function detail($id) {
-        $data['title'] = 'Detail Transaksi';
         $data['detail'] = $this->M_transaksi->get_detail($id);
         $data['transaksi'] = $this->M_transaksi->get_by_id($id);
-        $this->load->view('kasir/transaksi/detail', $data); 
-}
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar_kasir');
+        $this->load->view('kasir/transaksi/detail', $data);
+    }
 }

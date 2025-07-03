@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Dashboard extends CI_Controller
+{
 
     public function __construct()
     {
@@ -30,7 +31,7 @@ class Dashboard extends CI_Controller {
             $grafik_total = [];
             foreach ($query1->result() as $row) {
                 $grafik_bulan[] = $row->bulan;
-                $grafik_total[] = (int)$row->total;
+                $grafik_total[] = (int) $row->total;
             }
 
             // Grafik Produk per Kategori
@@ -44,7 +45,7 @@ class Dashboard extends CI_Controller {
             $grafik_jumlah_produk = [];
             foreach ($query2->result() as $row) {
                 $grafik_kategori[] = $row->nama_kategori;
-                $grafik_jumlah_produk[] = (int)$row->jumlah;
+                $grafik_jumlah_produk[] = (int) $row->jumlah;
             }
 
             // Grafik Jumlah Pelanggan
@@ -63,7 +64,7 @@ class Dashboard extends CI_Controller {
             $grafik_qty_terlaris = [];
             foreach ($query4->result() as $row) {
                 $grafik_terlaris[] = $row->nama_produk;
-                $grafik_qty_terlaris[] = (int)$row->total_jual;
+                $grafik_qty_terlaris[] = (int) $row->total_jual;
             }
 
             // Grafik Produk Stok Terendah
@@ -77,7 +78,7 @@ class Dashboard extends CI_Controller {
             $grafik_jml_stok = [];
             foreach ($query5->result() as $row) {
                 $grafik_nama_stok[] = $row->nama_produk;
-                $grafik_jml_stok[] = (int)$row->stok;
+                $grafik_jml_stok[] = (int) $row->stok;
             }
 
             // Grafik Pendapatan Harian (7 hari terakhir)
@@ -92,7 +93,7 @@ class Dashboard extends CI_Controller {
             $grafik_total_harian = [];
             foreach ($query6->result() as $row) {
                 $grafik_tanggal[] = $row->tgl;
-                $grafik_total_harian[] = (int)$row->total_harian;
+                $grafik_total_harian[] = (int) $row->total_harian;
             }
 
             // Kirim data ke view
@@ -113,9 +114,27 @@ class Dashboard extends CI_Controller {
             $this->load->view('dashboard/admin', $data);
 
         } elseif ($role === 'kasir') {
-            $this->load->view('dashboard/kasir');
-        } else {
-            show_error('Role tidak dikenali!');
-        }
+    // Penjualan hari ini
+    $penjualan_hari_ini = $this->db->select_sum('total')
+        ->where('DATE(tanggal)', date('Y-m-d'))
+        ->get('transaksi')
+        ->row()->total ?? 0;
+
+    // Jumlah transaksi hari ini
+    $jumlah_transaksi = $this->db->where('DATE(tanggal)', date('Y-m-d'))
+        ->count_all_results('transaksi');
+
+    // Jam login (ambil dari session atau waktu sekarang)
+    $jam_login = $this->session->userdata('jam_login') ?? date('H:i');
+
+    // Kirim data ke view kasir
+    $data = [
+        'penjualan_hari_ini' => $penjualan_hari_ini,
+        'jumlah_transaksi' => $jumlah_transaksi,
+        'jam_login' => $jam_login
+    ];
+
+    $this->load->view('dashboard/kasir', $data);
+}
     }
 }

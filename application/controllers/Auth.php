@@ -23,17 +23,18 @@ class Auth extends CI_Controller
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        // Panggil model
+        // Cek login melalui model
         $user = $this->M_login->cek_login($username, $password);
 
         if ($user) {
-            // Set session
+            // Simpan data ke session jika login berhasil
             $this->session->set_userdata([
                 'id_user'    => $user->id_user,
                 'nama_user'  => $user->nama_user,
                 'username'   => $user->username,
                 'role'       => $user->role,
-                'login'      => TRUE
+                'login'      => TRUE,
+                'jam_login'  => date('H:i') // waktu login disimpan
             ]);
 
             redirect('dashboard');
@@ -48,5 +49,4 @@ class Auth extends CI_Controller
         $this->session->sess_destroy();
         redirect('auth');
     }
-
 }
