@@ -37,13 +37,13 @@ class M_transaksi extends CI_Model
 
     public function get_riwayat_by_user($id_user)
     {
-       return $this->db->select('transaksi.*, pelanggan.nama_pelanggan')
-    ->from('transaksi')
-    ->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id_pelanggan', 'left')
-    ->where('transaksi.id_user', $id_user)
-    ->order_by('transaksi.tanggal', 'DESC')
-    ->get()
-    ->result();
+        return $this->db->select('transaksi.*, pelanggan.nama_pelanggan')
+            ->from('transaksi')
+            ->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id_pelanggan', 'left')
+            ->where('transaksi.id_user', $id_user)
+            ->order_by('transaksi.tanggal', 'DESC')
+            ->get()
+            ->result();
     }
 
 
@@ -79,13 +79,17 @@ class M_transaksi extends CI_Model
 
     public function get_all_with_detail()
     {
-        $this->db->select('t.id_transaksi, t.tanggal, t.total, p.nama_pelanggan, u.nama_user');
-        $this->db->from('transaksi t');
-        $this->db->join('pelanggan p', 'p.id_pelanggan = t.id_pelanggan', 'left');
-        $this->db->join('users u', 'u.id_user = t.id_user', 'left');
-        $this->db->order_by('t.tanggal', 'DESC');
+        $this->db->select('transaksi.id_transaksi, transaksi.tanggal, transaksi.total, 
+                       pelanggan.nama_pelanggan, users.nama_user');
+        $this->db->from('transaksi');
+        $this->db->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id_pelanggan', 'left');
+        $this->db->join('users', 'transaksi.id_user = users.id_user', 'left');
+        $this->db->order_by('transaksi.tanggal', 'DESC');
+
         return $this->db->get()->result();
     }
+
+
 
 
 
@@ -99,5 +103,15 @@ class M_transaksi extends CI_Model
         return $this->db->get()->row();
     }
 
+    public function hapus_transaksi($id_transaksi)
+    {
+        // Hapus detail transaksi 
+        $this->db->where('id_transaksi', $id_transaksi);
+        $this->db->delete('transaksi_detail');
+
+        // Lalu hapus data transaksi utama
+        $this->db->where('id_transaksi', $id_transaksi);
+        $this->db->delete('transaksi');
+    }
 
 }

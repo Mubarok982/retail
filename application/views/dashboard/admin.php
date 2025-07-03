@@ -70,9 +70,8 @@
 
             <!-- Row 3: Pendapatan dan Grafik Pelanggan -->
             <div class="row">
-                <!-- Tabel Pendapatan Harian -->
-                <div class="col-md-6">
-                    <div class="card card-info">
+                <div class="col-md-8">
+                    <div class="card card-info h-100">
                         <div class="card-header">
                             <h3 class="card-title">Pendapatan 7 Hari Terakhir</h3>
                         </div>
@@ -87,33 +86,22 @@
                                 <tbody>
                                     <?php foreach ($grafik_tanggal as $i => $tgl): ?>
                                         <tr>
-                                            <td><?= $tgl ?></td>
+                                            <td><?= date('d-m-Y', strtotime($tgl)) ?></td>
                                             <td>Rp <?= number_format($grafik_total_harian[$i], 0, ',', '.') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
+                                    <?php if (empty($grafik_tanggal)): ?>
+                                        <tr>
+                                            <td colspan="2" class="text-center">Belum ada data pendapatan.</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Grafik Jumlah Pelanggan -->
-                <div class="col-md-6">
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">Grafik Pertumbuhan Pelanggan</h3>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="chartPelanggan"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Info Box -->
-            <div class="row mb-4">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3><?= $jumlah_pelanggan ?></h3>
@@ -125,7 +113,11 @@
                     </div>
                 </div>
             </div>
+
         </div>
+    </section>
+</div>
+</div>
 
 
 </div>

@@ -26,4 +26,31 @@ class Laporan extends CI_Controller {
     $this->load->view('admin/laporan/detail', $data);
 }
 
+public function hapus($id)
+{
+    $this->load->model('M_transaksi');
+    $this->M_transaksi->hapus_transaksi($id);
+    $this->session->set_flashdata('success', 'Laporan berhasil dihapus.');
+    redirect('admin/laporan');
+}
+
+public function export_excel()
+{
+    $this->load->model('M_transaksi');
+    $laporan = $this->M_transaksi->get_all_with_detail();
+
+    header("Content-Type: application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=laporan_penjualan.xls");
+
+    echo "No\tTanggal\tPelanggan\tKasir\tTotal\n";
+
+    $no = 1;
+    foreach ($laporan as $row) {
+        echo $no++ . "\t" .
+             date('d-m-Y H:i', strtotime($row->tanggal)) . "\t" . 
+             $row->nama_pelanggan . "\t" .
+             $row->nama_user . "\t" .
+             $row->total . "\n";
+    }
+}
 }

@@ -1,8 +1,19 @@
 <?php $this->load->view('templates/sidebar_kasir'); ?>
+
 <!-- Content Wrapper -->
 <div class="content-wrapper">
     <section class="content pt-3">
         <div class="container-fluid">
+
+            <!-- Flash Message Error -->
+            <?php if ($this->session->flashdata('error')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $this->session->flashdata('error'); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif; ?>
 
             <!-- Judul Halaman -->
             <div class="mb-3">
@@ -20,13 +31,15 @@
                             <label for="id_produk" class="form-label">Pilih Produk</label>
                             <select name="id_produk" id="id_produk" class="form-control" required>
                                 <?php foreach ($produk as $p): ?>
-                                    <option value="<?= $p->id_produk ?>"><?= $p->nama_produk ?> - Rp <?= number_format($p->harga) ?></option>
+                                    <option value="<?= $p->id_produk ?>">
+                                        <?= $p->nama_produk ?> - Stok: <?= $p->stok ?> - Rp <?= number_format($p->harga) ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label for="jumlah" class="form-label">Jumlah</label>
-                            <input type="number" name="jumlah" id="jumlah" class="form-control" required>
+                            <input type="number" name="jumlah" id="jumlah" class="form-control" required min="1">
                         </div>
                         <div class="col-md-3 d-flex align-items-end">
                             <button type="submit" class="btn btn-success w-100">

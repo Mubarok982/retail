@@ -29,6 +29,13 @@ class Transaksi extends CI_Controller
 
         $produk = $this->M_produk->get_by_id($id_produk);
 
+        // Cek apakah stok cukup
+        if ($jumlah > $produk->stok) {
+            $this->session->set_flashdata('error', 'Jumlah melebihi stok yang tersedia. Stok tersedia: ' . $produk->stok);
+            redirect('kasir/transaksi');
+            return;
+        }
+
         $item = [
             'id_produk' => $produk->id_produk,
             'nama_produk' => $produk->nama_produk,
@@ -43,6 +50,7 @@ class Transaksi extends CI_Controller
         $this->session->set_userdata('keranjang', $keranjang);
         redirect('kasir/transaksi');
     }
+
 
     public function simpan()
     {
