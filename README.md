@@ -7,7 +7,7 @@ Aplikasi web sistem penjualan (kasir) berbasis **CodeIgniter 3** untuk toko reta
 ## 📦 Fitur Utama
 
 - ✅ **Login Multiuser (Kasir, Admin)**  
-- 🛒 **Transaksi Penjualan** dengan keranjang sementara (session)
+- 🛒 **Transaksi Penjualan** 
 - 🧾 **Cetak Struk** dan hitung otomatis kembalian
 - 🗃️ **Manajemen Produk & Stok**
 - 👤 **Manajemen Pelanggan**
