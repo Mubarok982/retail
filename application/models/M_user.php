@@ -27,4 +27,9 @@ class M_user extends CI_Model {
     {
         return $this->db->delete('users', ['id_user' => $id]);
     }
+
+        public function get_all_kasir()
+    {
+        return $this->db->where('role', 'kasir')->get('users')->result();
+    }
 }

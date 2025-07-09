@@ -36,13 +36,16 @@ class Transaksi extends CI_Controller
             return;
         }
 
+        $rowid = uniqid(); // Membuat ID unik untuk tiap item
         $item = [
+            'rowid' => $rowid,
             'id_produk' => $produk->id_produk,
             'nama_produk' => $produk->nama_produk,
             'harga' => $produk->harga,
             'jumlah' => $jumlah,
             'subtotal' => $jumlah * $produk->harga
         ];
+
 
         $keranjang = $this->session->userdata('keranjang') ?? [];
         $keranjang[] = $item;
@@ -94,4 +97,46 @@ class Transaksi extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('kasir/transaksi/detail', $data);
     }
+
+    public function hapus_item($rowid)
+{
+    $keranjang = $this->session->userdata('keranjang') ?? [];
+
+    // Hapus item dengan rowid yang cocok
+    foreach ($keranjang as $key => $item) {
+        if ($item['rowid'] == $rowid) {
+            unset($keranjang[$key]);
+            break;
+        }
+    }
+
+    // Reindex array agar tidak ada celah
+    $keranjang = array_values($keranjang);
+
+    $this->session->set_userdata('keranjang', $keranjang);
+    redirect('kasir/transaksi');
+}
+
+public function edit_jumlah()
+{
+    $rowid = $this->input->post('rowid');
+    $jumlah_baru = $this->input->post('jumlah_baru');
+
+    $keranjang = $this->session->userdata('keranjang') ?? [];
+
+    foreach ($keranjang as &$item) {
+        if (isset($item['rowid']) && $item['rowid'] == $rowid) {
+            // Validasi jumlah
+            if ($jumlah_baru > 0) {
+                $item['jumlah'] = $jumlah_baru;
+                $item['subtotal'] = $jumlah_baru * $item['harga'];
+            }
+            break;
+        }
+    }
+
+    $this->session->set_userdata('keranjang', $keranjang);
+    redirect('kasir/transaksi');
+}
+
 }

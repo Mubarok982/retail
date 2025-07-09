@@ -39,9 +39,6 @@
     <nav class="navbar navbar-expand navbar-dark navbar-custom">
         <span class="navbar-brand mb-0 h5">Retail App</span>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item text-white">
-                <?= $this->session->userdata('nama_user'); ?> (<?= $this->session->userdata('role'); ?>)
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </li>

@@ -6,21 +6,18 @@
     <section class="content pt-3">
         <div class="container-fluid">
 
-            <!-- Welcome Card -->
             <div class="card bg-light mb-4">
                 <div class="card-body">
                     <h4 class="mb-1">Selamat Datang, <b><?= $this->session->userdata('nama_user'); ?></b>!</h4>
-                    <p class="mb-0">Ini adalah halaman dashboard admin untuk mengelola sistem RetailApp.</p>
+                    <p class="text-muted mb-0">Ini adalah halaman dashboard admin untuk mengelola sistem RetailApp.</p>
                 </div>
             </div>
 
-            <!-- Row 1 -->
-            <div class="row">
-                <!-- Grafik Penjualan per Bulan -->
+            <div class="row mb-4">
                 <div class="col-md-6">
-                    <div class="card card-primary">
+                    <div class="card card-primary card-outline h-100">
                         <div class="card-header">
-                            <h3 class="card-title">Grafik Penjualan per Bulan</h3>
+                            <h3 class="card-title"><i class="fas fa-chart-line mr-2"></i>Grafik Penjualan per Bulan</h3>
                         </div>
                         <div class="card-body">
                             <canvas id="chartPenjualan"></canvas>
@@ -28,11 +25,10 @@
                     </div>
                 </div>
 
-                <!-- Grafik Produk per Kategori -->
                 <div class="col-md-6">
-                    <div class="card card-success">
+                    <div class="card card-success card-outline h-100">
                         <div class="card-header">
-                            <h3 class="card-title">Jumlah Produk per Kategori</h3>
+                            <h3 class="card-title"><i class="fas fa-tags mr-2"></i>Jumlah Produk per Kategori</h3>
                         </div>
                         <div class="card-body">
                             <canvas id="chartKategori"></canvas>
@@ -41,13 +37,11 @@
                 </div>
             </div>
 
-            <!-- Row 2 -->
-            <div class="row">
-                <!-- Grafik Produk Terlaris -->
+            <div class="row mb-4">
                 <div class="col-md-6">
-                    <div class="card card-warning">
+                    <div class="card card-warning card-outline h-100">
                         <div class="card-header">
-                            <h3 class="card-title">5 Produk Terlaris</h3>
+                            <h3 class="card-title"><i class="fas fa-star mr-2"></i>5 Produk Terlaris</h3>
                         </div>
                         <div class="card-body">
                             <canvas id="chartTerlaris"></canvas>
@@ -55,11 +49,10 @@
                     </div>
                 </div>
 
-                <!-- Grafik Stok Terendah -->
                 <div class="col-md-6">
-                    <div class="card card-danger">
+                    <div class="card card-danger card-outline h-100">
                         <div class="card-header">
-                            <h3 class="card-title">5 Produk dengan Stok Terendah</h3>
+                            <h3 class="card-title"><i class="fas fa-exclamation-triangle mr-2"></i>5 Produk dengan Stok Terendah</h3>
                         </div>
                         <div class="card-body">
                             <canvas id="chartStok"></canvas>
@@ -68,15 +61,14 @@
                 </div>
             </div>
 
-            <!-- Row 3: Pendapatan dan Grafik Pelanggan -->
             <div class="row">
-                <div class="col-md-8">
-                    <div class="card card-info h-100">
+                <div class="col-12">
+                    <div class="card card-info card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Pendapatan 7 Hari Terakhir</h3>
+                            <h3 class="card-title"><i class="fas fa-calendar-alt mr-2"></i>Pendapatan 7 Hari Terakhir</h3>
                         </div>
-                        <div class="card-body p-0">
-                            <table class="table table-bordered table-striped mb-0">
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped table-hover mb-0">
                                 <thead class="thead-light">
                                     <tr>
                                         <th style="width: 50%;">Tanggal</th>
@@ -86,7 +78,7 @@
                                 <tbody>
                                     <?php foreach ($grafik_tanggal as $i => $tgl): ?>
                                         <tr>
-                                            <td><?= date('d-m-Y', strtotime($tgl)) ?></td>
+                                            <td><?= date('d F Y', strtotime($tgl)) ?></td>
                                             <td>Rp <?= number_format($grafik_total_harian[$i], 0, ',', '.') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -97,18 +89,6 @@
                                     <?php endif; ?>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3><?= $jumlah_pelanggan ?></h3>
-                            <p>Total Pelanggan</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-users"></i>
                         </div>
                     </div>
                 </div>

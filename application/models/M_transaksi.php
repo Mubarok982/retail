@@ -77,31 +77,43 @@ class M_transaksi extends CI_Model
             ->result();
     }
 
-    public function get_all_with_detail()
-    {
-        $this->db->select('transaksi.id_transaksi, transaksi.tanggal, transaksi.total, 
-                       pelanggan.nama_pelanggan, users.nama_user');
-        $this->db->from('transaksi');
-        $this->db->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id_pelanggan', 'left');
-        $this->db->join('users', 'transaksi.id_user = users.id_user', 'left');
-        $this->db->order_by('transaksi.tanggal', 'DESC');
+   public function get_all_with_detail($start_date = null, $end_date = null, $id_pelanggan = null, $id_user = null, $min_total = null, $max_total = null)
+{
+    $this->db->select('t.*, p.nama_pelanggan, u.nama_user');
+    $this->db->from('transaksi t');
+    $this->db->join('pelanggan p', 't.id_pelanggan = p.id_pelanggan', 'left');
+    $this->db->join('users u', 't.id_user = u.id_user', 'left');
 
-        return $this->db->get()->result();
+    // Filter tanggal
+    if (!empty($start_date)) {
+        $this->db->where('DATE(t.tanggal) >=', $start_date);
+    }
+    if (!empty($end_date)) {
+        $this->db->where('DATE(t.tanggal) <=', $end_date);
     }
 
-
-
-
-
-    public function get_by_id($id)
-    {
-        $this->db->select('t.*, p.nama_pelanggan, u.nama_user');
-        $this->db->from('transaksi t');
-        $this->db->join('pelanggan p', 'p.id_pelanggan = t.id_pelanggan', 'left');
-        $this->db->join('users u', 'u.id_user = t.id_user', 'left');
-        $this->db->where('t.id_transaksi', $id);
-        return $this->db->get()->row();
+    // Filter pelanggan
+    if (!empty($id_pelanggan)) {
+        $this->db->where('t.id_pelanggan', $id_pelanggan);
     }
+
+    // Filter kasir
+    if (!empty($id_user)) {
+        $this->db->where('t.id_user', $id_user);
+    }
+
+    // Filter total transaksi
+    if (!empty($min_total)) {
+        $this->db->where('t.total >=', $min_total);
+    }
+    if (!empty($max_total)) {
+        $this->db->where('t.total <=', $max_total);
+    }
+
+    $this->db->order_by('t.tanggal', 'DESC');
+    return $this->db->get()->result();
+}
+
 
     public function hapus_transaksi($id_transaksi)
     {
@@ -113,5 +125,4 @@ class M_transaksi extends CI_Model
         $this->db->where('id_transaksi', $id_transaksi);
         $this->db->delete('transaksi');
     }
-
 }

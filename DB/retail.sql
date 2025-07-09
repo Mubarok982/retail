@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2025 at 10:49 AM
+-- Generation Time: Jul 09, 2025 at 01:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -38,9 +38,16 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `deskripsi`) VALUES
-(12, 'amunisi', 'ddd'),
-(13, 'amunisi mboh', 'ddd'),
-(14, 'makan', 'makan-makan');
+(12, 'makanan ringan', 'cocok buat santai'),
+(13, 'peralatan rumah tangga', 'buat ibu rumah tangga'),
+(14, 'makan', 'makan-makan'),
+(15, 'obat-obatan', 'men cepet mari'),
+(16, 'mainan ', 'untuk anak-anak'),
+(17, 'bumbu dapur', 'men masak e enak'),
+(18, 'sabun cuci', 'nek adus men resik'),
+(19, 'minuman bersoda', 'ngilangi ngelak'),
+(20, 'eskrim', 'es e njikok seko antartika'),
+(21, 'roti', 'men koyo wong eropa');
 
 -- --------------------------------------------------------
 
@@ -62,7 +69,13 @@ CREATE TABLE `pelanggan` (
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `email`, `no_hp`, `alamat`) VALUES
 (16, 'mulyono', 'rizqymubarok99@gmail.com', '081391005220', 'Bandongan'),
-(17, 'Dewi Lestari e', 'dian123@gmail.com', '08139', 'Bandongan');
+(17, 'Dewi Lestari e', 'dian123@gmail.com', '08139', 'Bandongan'),
+(18, 'owi', 'ari123@gmail.com', '08139', 'Bandongan'),
+(19, 'owo', 'ari123@gmail.com', '08139', 'Bandongan'),
+(20, 'wahyudi', 'ari123@gmail.com', '08139', 'Bandongan'),
+(21, 'adi', 'ari123@gmail.com', '08139', 'Bandongan'),
+(22, 'juliari', 'dian123@gmail.com', '08139', 'Bandongan'),
+(23, 'bahlil', 'dian123@gmail.com', '08139', 'Bandongan');
 
 -- --------------------------------------------------------
 
@@ -85,8 +98,13 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `id_kategori`, `harga`, `stok`, `deskripsi`, `gambar`) VALUES
-(18, 'fff', 14, 1222.00, -9999996, 'hhhhhhhhhhhh', 'Aluminum-PNG-Pic1.png'),
-(19, 'baygon', 14, 9999999.00, -68, 'bb', 'plastik2.jpg');
+(18, 'pel', 13, 50000.00, 130, 'hhhhhhhhhhhh', 'Aluminum-PNG-Pic1.png'),
+(22, 'obat batuk', 15, 20000.00, 98, 'ffffff', 'Aluminum-PNG-Pic2.png'),
+(25, 'sari roti', 21, 10000.00, 33, 'dvdv', 'Aluminum-PNG-Pic3.png'),
+(26, 'rinso', 18, 10000.00, 0, 'sdsads', 'besi2.png'),
+(28, 'fanta rasa jeruk', 19, 10000.00, 1000, 'mgilangi ngelak', 'yo.jpeg'),
+(29, 'roti aoka', 21, 1000.00, 1000, 'ini roti', 'Screenshot_2025-06-12_103318.png'),
+(30, 'magnum', 20, 10000.00, 22, 'anyes', 'Screenshot_2025-06-03_215720.png');
 
 -- --------------------------------------------------------
 
@@ -107,7 +125,14 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `id_pelanggan`, `id_user`, `tanggal`, `total`) VALUES
-(32, 16, 6, '2025-06-29', 9999999999.99);
+(35, 16, 6, '2025-07-03', 1000000.00),
+(37, 16, 6, '2025-07-08', 80000.00),
+(38, 19, 6, '2025-07-09', 10000.00),
+(39, 17, 6, '2025-07-09', 20000.00),
+(40, 18, 6, '2025-07-09', 10000.00),
+(41, 17, 6, '2025-07-09', 10000.00),
+(42, 23, 6, '2025-07-09', 10000.00),
+(43, 21, 6, '2025-07-09', 10000.00);
 
 -- --------------------------------------------------------
 
@@ -128,8 +153,14 @@ CREATE TABLE `transaksi_detail` (
 --
 
 INSERT INTO `transaksi_detail` (`id_detail`, `id_transaksi`, `id_produk`, `jumlah`, `subtotal`) VALUES
-(20, 32, 19, 77, 769999923.00),
-(21, 32, 18, 9999999, 9999999999.99);
+(25, 35, 18, 20, 1000000.00),
+(29, 37, 30, 8, 80000.00),
+(30, 38, 25, 1, 10000.00),
+(31, 39, 22, 1, 20000.00),
+(32, 40, 25, 1, 10000.00),
+(33, 41, 26, 1, 10000.00),
+(34, 42, 26, 1, 10000.00),
+(35, 43, 26, 1, 10000.00);
 
 -- --------------------------------------------------------
 
@@ -151,8 +182,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nama_user`, `username`, `password`, `role`, `created_at`) VALUES
-(5, 'Admin Toko', 'admin', 'admin123', 'admin', '2025-06-24 05:06:23'),
-(6, 'Kasir Toko', 'kasir', 'kasir123', 'kasir', '2025-06-24 05:12:21');
+(6, 'mubarok', 'mubarok', 'mubarok', 'kasir', '2025-06-24 05:12:21'),
+(7, 'rizqy', 'rizqy', 'rizqy', 'admin', '2025-07-01 03:48:37');
 
 --
 -- Indexes for dumped tables
@@ -208,37 +239,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

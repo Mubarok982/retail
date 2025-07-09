@@ -1,95 +1,166 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Riwayat Transaksi - RetailApp</title>
+<?php $this->load->view('templates/sidebar_kasir'); ?>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap & AdminLTE -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .content-wrapper {
-            padding: 20px;
-        }
-        .table th, .table td {
-            vertical-align: middle;
-        }
-    </style>
-</head>
-<body class="hold-transition sidebar-mini layout-fixed">
-
-<div class="wrapper">
-
-    <!-- Sidebar Kasir -->
-    <?php $this->load->view('templates/sidebar_kasir'); ?>
-
-    <!-- Content Wrapper -->
-    <div class="content-wrapper">
-        <!-- Header -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <h4><i class="fas fa-history mr-2"></i>Riwayat Transaksi</h4>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Riwayat Transaksi</h1>
+                </div>
+                <div class="col-sm-6">
+                </div>
             </div>
-        </section>
+        </div><!-- /.container-fluid -->
+    </section>
 
-        <!-- Main Content -->
-        <section class="content">
-            <div class="container-fluid">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-history mr-2"></i>Daftar Semua Transaksi</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Filter Section -->
+                  <div class="filter-container p-3 mb-4 bg-light rounded border">
+    <form method="get" action="<?= base_url('kasir/riwayat') ?>">
+        <div class="row">
+            <!-- Tanggal Awal -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="start_date">Dari Tanggal</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control form-control-sm"
+                        value="<?= htmlspecialchars($filter['start_date'] ?? '') ?>">
+                </div>
+            </div>
 
-                <div class="card shadow-sm">
-                    <div class="card-body p-0">
-                        <table class="table table-bordered table-striped mb-0">
-                            <thead class="bg-primary text-white">
+            <!-- Tanggal Akhir -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="end_date">Sampai Tanggal</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control form-control-sm"
+                        value="<?= htmlspecialchars($filter['end_date'] ?? '') ?>">
+                </div>
+            </div>
+
+            <!-- Pelanggan -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="id_pelanggan">Pelanggan</label>
+                    <select name="id_pelanggan" id="id_pelanggan" class="form-control form-control-sm">
+                        <option value="">-- Semua --</option>
+                        <?php foreach ($pelanggan as $p): ?>
+                            <option value="<?= $p->id_pelanggan ?>"
+                                <?= ($filter['id_pelanggan'] ?? '') == $p->id_pelanggan ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($p->nama_pelanggan, ENT_QUOTES, 'UTF-8') ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Kasir -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="id_user">Kasir</label>
+                    <select name="id_user" id="id_user" class="form-control form-control-sm">
+                        <option value="">-- Semua --</option>
+                        <?php foreach ($kasir as $k): ?>
+                            <option value="<?= $k->id_user ?>"
+                                <?= ($filter['id_user'] ?? '') == $k->id_user ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($k->nama_user, ENT_QUOTES, 'UTF-8') ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Min Total -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="min_total">Total Min (Rp)</label>
+                    <input type="number" name="min_total" id="min_total" class="form-control form-control-sm"
+                        value="<?= htmlspecialchars($filter['min_total'] ?? '') ?>">
+                </div>
+            </div>
+
+            <!-- Max Total -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="max_total">Total Max (Rp)</label>
+                    <input type="number" name="max_total" id="max_total" class="form-control form-control-sm"
+                        value="<?= htmlspecialchars($filter['max_total'] ?? '') ?>">
+                </div>
+            </div>
+
+            <!-- Tombol Filter -->
+            <div class="col-md-2 d-flex align-items-end">
+                <div class="form-group w-100">
+                    <button type="submit" class="btn btn-primary btn-sm btn-block">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <a href="<?= base_url('kasir/riwayat') ?>" class="btn btn-secondary btn-sm btn-block mt-1">
+                        <i class="fas fa-sync-alt"></i> Reset
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+                    <!-- End Filter Section -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="thead-light text-center">
                                 <tr>
-                                    <th>No</th>
+                                    <th style="width: 10px;">No</th>
                                     <th>Tanggal</th>
                                     <th>Pelanggan</th>
                                     <th>Kasir</th>
                                     <th>Total</th>
-                                    <th style="width: 120px;">Aksi</th>
+                                    <th style="width: 100px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no = 1; foreach ($riwayat as $r): ?>
+                                <?php if (!empty($riwayat)): ?>
+                                    <?php $no = 1; foreach ($riwayat as $r): ?>
                                     <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= date('d-m-Y H:i', strtotime($r->tanggal)) ?></td>
-                                        <td><?= $r->nama_pelanggan ?></td>
-                                        <td><?= $r->nama_user ?></td>
-                                        <td>Rp <?= number_format($r->total, 0, ',', '.') ?></td>
-                                        <td>
-                                            <a href="<?= base_url('kasir/riwayat/detail/' . $r->id_transaksi) ?>" class="btn btn-info btn-sm">
-                                                <i class="fas fa-search"></i> Detail
+                                        <td class="text-center"><?= $no++ ?></td>
+                                        <td><?= date('d F Y, H:i', strtotime($r->tanggal)) ?></td>
+                                        <td><?= htmlspecialchars($r->nama_pelanggan, ENT_QUOTES, 'UTF-8') ?></td>
+                                        <td><?= htmlspecialchars($r->nama_user, ENT_QUOTES, 'UTF-8') ?></td>
+                                        <td class="text-right">Rp <?= number_format($r->total, 0, ',', '.') ?></td>
+                                        <td class="text-center">
+                                            <a href="<?= base_url('kasir/riwayat/detail/' . $r->id_transaksi) ?>" class="btn btn-info btn-sm" title="Lihat Detail">
+                                                <i class="fas fa-eye"></i>
                                             </a>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
-                                <?php if (empty($riwayat)): ?>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
                                     <tr>
-                                        <td colspan="6" class="text-center text-muted">Belum ada transaksi.</td>
+                                        <td colspan="6" class="text-center py-4">Tidak ada riwayat transaksi yang ditemukan.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
+                <!-- Pagination (Placeholder) -->
+                <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                        <li class="page-item"><a class="page-link" href="#">«</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    </ul>
+                </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 </div>
+<!-- /.content-wrapper -->
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-</body>
-</html>
+<?php $this->load->view('templates/footer'); ?>

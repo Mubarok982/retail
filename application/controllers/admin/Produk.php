@@ -16,20 +16,26 @@ class Produk extends CI_Controller
     }
 
     public function index()
-    {
-        $kategori_id = $this->input->get('kategori');
-        $min_harga = $this->input->get('min_harga');
-        $max_harga = $this->input->get('max_harga');
-        $data['kategori_list'] = $this->M_kategori->get_all();
+{
+    $kategori_id = $this->input->get('kategori');
+    $min_harga = $this->input->get('min_harga');
+    $max_harga = $this->input->get('max_harga');
+    $min_stok = $this->input->get('min_stok');
+    $max_stok = $this->input->get('max_stok');
 
-        $data['selected_kategori'] = $kategori_id ? $kategori_id : '';
-        $data['min_harga'] = $min_harga;
-        $data['max_harga'] = $max_harga;
+    $data['kategori_list'] = $this->M_kategori->get_all();
 
-        $data['produk'] = $this->M_produk->get_filtered($kategori_id, $min_harga, $max_harga);
+    $data['selected_kategori'] = $kategori_id ?? '';
+    $data['min_harga'] = $min_harga;
+    $data['max_harga'] = $max_harga;
+    $data['min_stok'] = $min_stok;
+    $data['max_stok'] = $max_stok;
 
-        $this->load->view('admin/produk/index', $data);
-    }
+    $data['produk'] = $this->M_produk->get_filtered($kategori_id, $min_harga, $max_harga, $min_stok, $max_stok);
+
+    $this->load->view('admin/produk/index', $data);
+}
+
 
     public function tambah()
     {

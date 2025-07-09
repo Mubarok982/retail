@@ -18,31 +18,35 @@ class Auth extends CI_Controller
         $this->load->view('auth/login');
     }
 
-    public function login()
-    {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
+   public function login()
+{
+    $username = $this->input->post('username');
+    $password = $this->input->post('password');
 
-        // Cek login melalui model
-        $user = $this->M_login->cek_login($username, $password);
+    // Cek login melalui model
+    $user = $this->M_login->cek_login($username, $password);
 
-        if ($user) {
-            // Simpan data ke session jika login berhasil
-            $this->session->set_userdata([
-                'id_user'    => $user->id_user,
-                'nama_user'  => $user->nama_user,
-                'username'   => $user->username,
-                'role'       => $user->role,
-                'login'      => TRUE,
-                'jam_login'  => date('H:i') // waktu login disimpan
-            ]);
+    if ($user) {
+        // Set timezone ke WIB sebelum menyimpan waktu
+        date_default_timezone_set('Asia/Jakarta');
 
-            redirect('dashboard');
-        } else {
-            $this->session->set_flashdata('error', 'Username atau password salah!');
-            redirect('auth');
-        }
+        // Simpan data ke session jika login berhasil
+        $this->session->set_userdata([
+            'id_user'    => $user->id_user,
+            'nama_user'  => $user->nama_user,
+            'username'   => $user->username,
+            'role'       => $user->role,
+            'login'      => TRUE,
+            'jam_login'  => date('H:i') // waktu login sesuai WIB
+        ]);
+
+        redirect('dashboard');
+    } else {
+        $this->session->set_flashdata('error', 'Username atau password salah!');
+        redirect('auth');
     }
+}
+
 
     public function logout()
     {

@@ -11,6 +11,9 @@ class Dashboard extends CI_Controller
             redirect('auth');
         }
 
+         // Set timezone ke WIB
+        date_default_timezone_set('Asia/Jakarta');
+
         $this->load->database();
     }
 
