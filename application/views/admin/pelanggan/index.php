@@ -1,4 +1,4 @@
-<?php $this->load->view('templates/sidebar_kasir'); ?>
+<?php $this->load->view('templates/sidebar_admin'); ?>
 
 <!-- Content Wrapper -->
 <div class="content-wrapper">
