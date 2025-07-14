@@ -63,7 +63,7 @@ class Riwayat extends CI_Controller {
         }
 
         $data['detail'] = $this->M_transaksi->get_detail($id);
-        $data['transaksi'] = $this->M_transaksi->get_by_id($id);
+        $data['transaksi'] = $this->M_transaksi->get_all_with_detail($id);
 
         if (!$data['transaksi']) {
             $this->session->set_flashdata('error', 'Transaksi tidak ditemukan.');

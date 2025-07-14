@@ -127,7 +127,7 @@ class Dashboard extends CI_Controller
     $jumlah_transaksi = $this->db->where('DATE(tanggal)', date('Y-m-d'))
         ->count_all_results('transaksi');
 
-    // Jam login (ambil dari session atau waktu sekarang)
+    // Jam login 
     $jam_login = $this->session->userdata('jam_login') ?? date('H:i');
 
     // Kirim data ke view kasir

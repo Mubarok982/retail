@@ -161,6 +161,3 @@
         </div>
     </section>
 </div>
-<!-- /.content-wrapper -->
-
-<?php $this->load->view('templates/footer'); ?>
