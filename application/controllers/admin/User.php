@@ -27,7 +27,7 @@ class User extends CI_Controller {
         $data = [
             'nama_user' => $this->input->post('nama_user'),
             'username' => $this->input->post('username'),
-            'password' => $this->input->post('password'), // tidak di-hash dulu
+            'password' => $this->input->post('password'), 
             'role'     => $this->input->post('role')
         ];
         $this->M_user->insert($data);
@@ -47,7 +47,7 @@ class User extends CI_Controller {
         $data = [
             'nama_user' => $this->input->post('nama_user'),
             'username' => $this->input->post('username'),
-            'password' => $this->input->post('password'), // tidak di-hash dulu
+            'password' => $this->input->post('password'), 
             'role'     => $this->input->post('role')
         ];
         $this->M_user->update($id, $data);

@@ -36,7 +36,7 @@ class Transaksi extends CI_Controller
             return;
         }
 
-        $rowid = uniqid(); // Membuat ID unik untuk tiap item
+        $rowid = uniqid(); 
         $item = [
             'rowid' => $rowid,
             'id_produk' => $produk->id_produk,
